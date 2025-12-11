@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h3>Register New Customer</h3>
+        <form method="POST">
+            <div class="mb-3">
+                <label>CSSN (e.g. 999-99-9999)</label>
+                <input type="text" name="cssn" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>First Name</label>
+                <input type="text" name="fname" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Last Name</label>
+                <input type="text" name="lname" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input type="password" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-success w-100">Register</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>User Dashboard</h2>
+
+<div class="card p-3 mb-4 bg-light">
+    <h5>Search Accounts</h5>
+    <form method="GET" class="d-flex">
+        <input type="number" name="search_balance" class="form-control me-2" placeholder="Min Balance">
+        <button type="submit" class="btn btn-secondary">Filter</button>
+        <a href="{{ url_for('user_dashboard') }}" class="btn btn-outline-secondary ms-2">Reset</a>
+    </form>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h4>Your Accounts</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Account Num</th>
+                    <th>Type</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for acc in accounts %}
+                <tr>
+                    <td>{{ acc.AccountNum }}</td>
+                    <td>{{ acc.AccountType }}</td>
+                    <td>${{ acc.Balance }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-md-6">
+        <h4>Transfer Money</h4>
+        <div class="card p-3">
+            <form action="{{ url_for('transfer') }}" method="POST">
+                <div class="mb-3">
+                    <label>From Your Account</label>
+                    <select name="from_account" class="form-select">
+                        {% for acc in accounts %}
+                        <option value="{{ acc.AccountNum }}">{{ acc.AccountType }} (#{{ acc.AccountNum }} - ${{ acc.Balance }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label>To Account Num</label>
+                    <input type="number" name="to_account_id" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label>Amount</label>
+                    <input type="number" step="0.01" name="amount" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Money</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
